@@ -1,14 +1,62 @@
-.empty-state { display:flex; align-items:center; gap:12px; padding:16px; text-align:left;
-  background:#fff; border:1px dashed #cbd5e1; border-radius:14px; color:#334155; }
-.empty-state__icon { font-size:28px; line-height:1; }
+.empty-state {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:16px;
+  text-align:left;
+  background:#fff;
+  border:1px dashed #cbd5e1;
+  border-radius:16px;
+  color:#334155;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+.empty-state__icon {
+  font-size:32px;
+  line-height:1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
 .empty-state__text { min-width:0; }
-.empty-state__text strong { display:block; font-size:14px; color:#0f172a; }
-.empty-state__text p { margin:2px 0 0; font-size:13px; color:#64748b; }
-.empty-state__close { margin-left:auto; width:32px; height:32px; border:0; border-radius:8px;
-  background:transparent; color:#64748b; font-size:22px; line-height:1; cursor:pointer; flex-shrink:0; }
-.empty-state__close:hover { background:#f1f5f9; color:#0f172a; }
+.empty-state__text strong {
+  display:block;
+  font-size:14px;
+  color:#0f172a;
+  font-weight: 600;
+}
+.empty-state__text p {
+  margin:4px 0 0;
+  font-size:13px;
+  color:#64748b;
+}
+.empty-state__close {
+  margin-left:auto;
+  width:32px;
+  height:32px;
+  border:0;
+  border-radius:8px;
+  background:transparent;
+  color:#64748b;
+  font-size:22px;
+  line-height:1;
+  cursor:pointer;
+  flex-shrink:0;
+  transition: all 0.2s ease;
+}
+.empty-state__close:hover {
+  background:#f1f5f9;
+  color:#0f172a;
+}
 
 /* Card on top of the map */
-.empty-state--floating { position:absolute; top:16px; left:50%; transform:translateX(-50%);
-  z-index:1000; width:max-content; max-width:calc(100% - 32px);
-  border-style:solid; border-color:#fed7aa; box-shadow:0 8px 24px rgba(15,23,42,.22); }
+.empty-state--floating {
+  position:absolute;
+  top:16px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:1000;
+  width:max-content;
+  max-width:calc(100% - 32px);
+  border-style:solid;
+  border-color:#fed7aa;
+  box-shadow:0 12px 32px rgba(15,23,42,.2);
+  background: linear-gradient(135deg, #fff7ed 0%, #fff 100%);
+}

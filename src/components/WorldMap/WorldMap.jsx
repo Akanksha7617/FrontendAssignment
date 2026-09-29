@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, memo, useRef, useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON, useMap, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { mallService } from '../../services/mallService';
@@ -8,7 +8,7 @@ import './WorldMap.css';
 const MARKER_MIN_ZOOM = 5; // show all markers when zoomed in this far
 
 /* Country borders: highlight countries with malls, click to select */
-function CountryLayer({ countries, selectedCountryId, onSelectCountry, onNotify, onEmptyCountry }) {
+const CountryLayer = memo(function CountryLayer({ countries, selectedCountryId, onSelectCountry, onNotify, onEmptyCountry }) {
   const map = useMap();
   const [shapes, setShapes] = useState(null);
   const layerRef = useRef(null);
@@ -64,36 +64,37 @@ function CountryLayer({ countries, selectedCountryId, onSelectCountry, onNotify,
 
   if (!shapes) return null;
   return <GeoJSON ref={layerRef} data={shapes} style={styleFor} onEachFeature={onEachFeature} />;
-}
+});
 
 /* Markers: only render when country selected or zoomed in enough */
-function MarkersLayer({ items, selectedCountryId, selectedMallId, onSelectMall, onCloseMall }) {
+const MarkersLayer = memo(function MarkersLayer({ items, selectedCountryId, selectedMallId, onSelectMall, onCloseMall }) {
   const map = useMap();
   const [zoom, setZoom] = useState(map.getZoom());
   useMapEvents({ zoomend: () => setZoom(map.getZoom()) });
 
-  return items
-    .filter(
-      ({ mall }) =>
-        zoom >= MARKER_MIN_ZOOM || mall.countryId === selectedCountryId || mall.id === selectedMallId
-    )
-    .map(({ mall, status }) => (
-      <MallMarker
-        key={mall.id}
-        mall={mall}
-        status={status}
-        selected={mall.id === selectedMallId}
-        onSelect={onSelectMall}
-        onClose={onCloseMall}
-      />
-    ));
-}
+  const visibleItems = items.filter(
+    ({ mall }) =>
+      mall && (zoom >= MARKER_MIN_ZOOM || mall.countryId === selectedCountryId || mall.id === selectedMallId)
+  );
 
-function ResetView({ onReset }) {
+  return visibleItems.map(({ mall, status }, index) => (
+    <MallMarker
+      key={mall?.id || `marker-${index}`}
+      mall={mall}
+      status={status}
+      selected={mall?.id === selectedMallId}
+      onSelect={onSelectMall}
+      onClose={onCloseMall}
+    />
+  ));
+});
+
+const ResetView = memo(function ResetView({ onReset }) {
   const map = useMap();
   return (
     <button
       className="world-map__reset"
+      aria-label="Reset to world view"
       onClick={(e) => {
         e.stopPropagation();
         map.closePopup();
@@ -104,13 +105,13 @@ function ResetView({ onReset }) {
       🌍 World view
     </button>
   );
-}
+});
 
 /* Fly to the mall chosen from the sidebar / marker */
-function FlyToSelected({ mall }) {
+const FlyToSelected = memo(function FlyToSelected({ mall }) {
   const map = useMap();
   useEffect(() => {
-    if (!mall) return;
+    if (!mall || !Number.isFinite(mall.latitude) || !Number.isFinite(mall.longitude)) return;
     const zoom = Math.max(map.getZoom(), 12);
     const offset = Math.min(150, map.getSize().y * 0.25);
     const target = map
@@ -119,9 +120,9 @@ function FlyToSelected({ mall }) {
     map.flyTo(map.unproject(target, zoom), zoom, { duration: 1.2 });
   }, [mall?.id]); // eslint-disable-line react-hooks/exhaustive-deps
   return null;
-}
+});
 /* Keeps Leaflet in sync when the layout changes (rotate phone, resize, sidebar moves) */
-function ResizeWatcher() {
+const ResizeWatcher = memo(function ResizeWatcher() {
   const map = useMap();
   useEffect(() => {
     const ro = new ResizeObserver(() => map.invalidateSize());
@@ -129,13 +130,13 @@ function ResizeWatcher() {
     return () => ro.disconnect();
   }, [map]);
   return null;
-}
+});
 
-export default function WorldMap({
+const WorldMap = memo(function WorldMap({
   items, countries, selectedCountryId, selectedMallId,
   onSelectCountry, onSelectMall, onCloseMall, onNotify, onEmptyCountry,
 }) {
-  const selectedMall = items.find(({ mall }) => mall.id === selectedMallId)?.mall;
+  const selectedMall = items.find(({ mall }) => mall?.id === selectedMallId)?.mall;
 
   return (
     <MapContainer
@@ -173,4 +174,6 @@ export default function WorldMap({
       <ResetView onReset={() => onSelectCountry(null)} />
     </MapContainer>
   );
-}
+});
+
+export default WorldMap;

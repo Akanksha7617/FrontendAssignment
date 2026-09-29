@@ -2,17 +2,32 @@
 
 A production-quality React.js web application that provides an interactive world map experience for Phoenix Malls, featuring real-time open/closed status, mall details, and responsive design.
 
-## 🌟 Features
+## � Assignment Objective
+
+This project demonstrates the ability to build a production-ready frontend application with:
+- Component-based architecture with clear separation of concerns
+- Reusable UI components following modern React patterns
+- Proper data flow and state management
+- Real-time business logic (timezone-aware status calculation)
+- Responsive design with mobile-first approach
+- Performance optimization techniques
+- Comprehensive testing for critical business logic
+- Accessibility considerations
+- Professional UI/UX design
+
+## �🌟 Features
 
 - **Interactive World Map**: Built with Leaflet and React Leaflet, featuring zoom, pan, and country selection
 - **Real-time Mall Status**: Dynamic OPEN/CLOSED status calculation based on local timezone and operating hours
 - **Visual Status Indicators**: Green pulsing markers for open malls, red markers for closed malls
 - **Detailed Mall Information**: Popup cards with mall images, contact details, operating hours, and more
+- **Search & Filter**: Search malls by name/city and filter by open/closed status
 - **Responsive Design**: Optimized for desktop, tablet, and mobile devices
 - **Modern UI**: Clean, professional interface with smooth transitions and animations
 - **Service Layer Architecture**: Abstracted data layer ready for REST API integration
 - **Comprehensive Testing**: Unit tests for critical business logic
 - **Loading & Error States**: Proper handling of loading, empty, and error states
+- **Accessibility**: ARIA labels, keyboard navigation, and screen reader support
 
 ## 🛠 Tech Stack
 

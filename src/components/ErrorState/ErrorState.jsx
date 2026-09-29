@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import './ErrorState.css';
 
-export default function ErrorState({
+function ErrorState({
   title = 'Unable to load Phoenix Malls.',
   hint = 'Please try again.',
   message,
@@ -16,3 +17,5 @@ export default function ErrorState({
     </div>
   );
 }
+
+export default memo(ErrorState);

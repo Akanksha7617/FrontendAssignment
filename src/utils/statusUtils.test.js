@@ -15,6 +15,21 @@ describe('getMallStatus: basics', () => {
     expect(getMallStatus(mall, at('2026-01-15T16:30:00Z')).status).toBe('CLOSED');
   });
 
+  it('tests specific time points for 10:00-22:00 hours', () => {
+    // 09:00 IST = 03:30 UTC → CLOSED
+    expect(getMallStatus(mall, at('2026-01-15T03:30:00Z')).status).toBe('CLOSED');
+    // 10:00 IST = 04:30 UTC → OPEN
+    expect(getMallStatus(mall, at('2026-01-15T04:30:00Z')).status).toBe('OPEN');
+    // 15:00 IST = 09:30 UTC → OPEN
+    expect(getMallStatus(mall, at('2026-01-15T09:30:00Z')).status).toBe('OPEN');
+    // 21:59 IST = 16:29 UTC → OPEN
+    expect(getMallStatus(mall, at('2026-01-15T16:29:00Z')).status).toBe('OPEN');
+    // 22:00 IST = 16:30 UTC → CLOSED
+    expect(getMallStatus(mall, at('2026-01-15T16:30:00Z')).status).toBe('CLOSED');
+    // 23:00 IST = 17:30 UTC → CLOSED
+    expect(getMallStatus(mall, at('2026-01-15T17:30:00Z')).status).toBe('CLOSED');
+  });
+
   it('handles midnight-crossing hours', () => {
     const night = { ...mall, openingTime: '18:00', closingTime: '02:00' };
     expect(getMallStatus(night, at('2026-01-15T14:30:00Z')).status).toBe('OPEN');   // 20:00 IST
@@ -106,5 +121,40 @@ describe('getMallStatus: DST and boundaries', () => {
 
   it('returns UNKNOWN when opening equals closing', () => {
     expect(getMallStatus({ ...mall, openingTime: '10:00', closingTime: '10:00' }).status).toBe('UNKNOWN');
+  });
+
+  it('handles missing opening time', () => {
+    expect(getMallStatus({ ...mall, openingTime: null }).status).toBe('UNKNOWN');
+    expect(getMallStatus({ ...mall, openingTime: undefined }).status).toBe('UNKNOWN');
+  });
+
+  it('handles missing closing time', () => {
+    expect(getMallStatus({ ...mall, closingTime: null }).status).toBe('UNKNOWN');
+    expect(getMallStatus({ ...mall, closingTime: undefined }).status).toBe('UNKNOWN');
+  });
+
+  it('handles invalid time format', () => {
+    expect(getMallStatus({ ...mall, openingTime: 'invalid' }).status).toBe('UNKNOWN');
+    expect(getMallStatus({ ...mall, closingTime: 'invalid' }).status).toBe('UNKNOWN');
+  });
+
+  it('handles missing timezone', () => {
+    expect(getMallStatus({ ...mall, timezone: null }).status).toBe('UNKNOWN');
+    expect(getMallStatus({ ...mall, timezone: undefined }).status).toBe('UNKNOWN');
+    expect(getMallStatus({ ...mall, timezone: '' }).status).toBe('UNKNOWN');
+  });
+
+  it('handles invalid timezone strings', () => {
+    expect(getMallStatus({ ...mall, timezone: 'Invalid/Timezone' }).status).toBe('UNKNOWN');
+    expect(getMallStatus({ ...mall, timezone: 'NotARealZone' }).status).toBe('UNKNOWN');
+  });
+
+  it('handles null or undefined mall object', () => {
+    expect(getMallStatus(null).status).toBe('UNKNOWN');
+    expect(getMallStatus(undefined).status).toBe('UNKNOWN');
+  });
+
+  it('handles empty mall object', () => {
+    expect(getMallStatus({}).status).toBe('UNKNOWN');
   });
 });

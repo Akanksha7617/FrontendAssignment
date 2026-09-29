@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import './SearchBar.css';
 
 const FILTERS = [
@@ -6,17 +7,17 @@ const FILTERS = [
   { id: 'CLOSED', label: 'Closed' },
 ];
 
-export default function SearchBar({ query, onQuery, filter, onFilter }) {
+function SearchBar({ query, onQuery, filter, onFilter }) {
   return (
     <div className="search">
       <input
         type="search"
         placeholder="Search mall or city…"
-        aria-label="Search malls"
+        aria-label="Search malls by name or city"
         value={query}
         onChange={(e) => onQuery(e.target.value)}
       />
-      <div className="search__chips" role="group" aria-label="Filter by status">
+      <div className="search__chips" role="group" aria-label="Filter malls by status">
         {FILTERS.map((f) => (
           <button
             key={f.id}
@@ -31,3 +32,5 @@ export default function SearchBar({ query, onQuery, filter, onFilter }) {
     </div>
   );
 }
+
+export default memo(SearchBar);

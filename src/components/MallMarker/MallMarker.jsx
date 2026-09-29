@@ -31,8 +31,8 @@ function MallMarker({ mall, status, selected, onSelect, onClose }) {
 
   // Invalid coordinates: skip marker instead of crashing
   if (
-    !Number.isFinite(mall.latitude) ||
-    !Number.isFinite(mall.longitude)
+    !Number.isFinite(mall?.latitude) ||
+    !Number.isFinite(mall?.longitude)
   ) {
     return null;
   }
@@ -40,18 +40,22 @@ function MallMarker({ mall, status, selected, onSelect, onClose }) {
   // Fallback to UNKNOWN if status is missing/invalid
   const markerStatus = ICONS[status?.status] ? status.status : 'UNKNOWN';
 
+  // Defensive handling for missing mall properties
+  const displayName = mall?.name || 'Unknown Mall';
+  const mallId = mall?.id;
+
   return (
     <Marker
       ref={ref}
       position={[mall.latitude, mall.longitude]}
       icon={ICONS[markerStatus]}
       eventHandlers={{
-        click: () => onSelect(mall.id),
-        popupclose: () => onClose(mall.id),
+        click: () => onSelect(mallId),
+        popupclose: () => onClose(mallId),
       }}
     >
       <Tooltip direction="top" offset={[0, -14]}>
-        {mall.name} · {markerStatus}
+        {displayName} · {markerStatus}
       </Tooltip>
 
       <MallPopup

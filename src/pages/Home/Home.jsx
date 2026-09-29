@@ -30,8 +30,9 @@ export default function Home() {
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
     return items.filter(({ mall, status }) => {
-      const matchesQuery = !q || `${mall.name} ${mall.city} ${mall.country}`.toLowerCase().includes(q);
-      const matchesFilter = filter === 'ALL' || status.status === filter;
+      if (!mall) return false;
+      const matchesQuery = !q || `${mall.name || ''} ${mall.city || ''} ${mall.country || ''}`.toLowerCase().includes(q);
+      const matchesFilter = filter === 'ALL' || status?.status === filter;
       return matchesQuery && matchesFilter;
     });
   }, [items, query, filter]);
@@ -42,8 +43,8 @@ export default function Home() {
     (id) => {
       setSelectedMallId(id);
       setEmptyCountry(null);
-      const mall = malls.find((m) => m.id === id);
-      if (mall) setSelectedCountryId(mall.countryId);
+      const mall = malls.find((m) => m?.id === id);
+      if (mall && mall.countryId) setSelectedCountryId(mall.countryId);
     },
     [malls]
   );
@@ -74,12 +75,12 @@ export default function Home() {
                   <EmptyState title="No malls match your search." message="Try a different name or filter." icon="🔍" />
                 )
               ) : (
-                visible.map(({ mall, status }) => (
+                visible.map(({ mall, status }, index) => (
                   <MallCard
-                    key={mall.id}
+                    key={mall?.id || `mall-${index}`}
                     mall={mall}
                     status={status}
-                    selected={mall.id === selectedMallId}
+                    selected={mall?.id === selectedMallId}
                     onSelect={selectMall}
                   />
                 ))
