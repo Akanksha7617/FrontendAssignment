@@ -1,0 +1,73 @@
+{
+  "countries": [
+    {
+      "id": "IND",
+      "name": "India",
+      "center": [
+        20.59,
+        78.96
+      ],
+      "zoom": 5
+    }
+  ],
+  "malls": [
+    {
+      "id": "pmc-pune",
+      "name": "Phoenix Marketcity Pune",
+      "countryId": "IND",
+      "country": "India",
+      "city": "Pune",
+      "address": "Survey No. 207, Off Nagar Road, Viman Nagar, Pune 411014",
+      "latitude": 18.5615,
+      "longitude": 73.9167,
+      "image": "https://picsum.photos/seed/pmc-pune/600/360",
+      "openingTime": "10:00",
+      "closingTime": "22:00",
+      "phone": "+91 20 6666 6622",
+      "timezone": "Asia/Kolkata",
+      "website": "https://www.phoenixmarketcity.com/pune"
+    },
+    {
+      "id": "pmc-mumbai",
+      "name": "Phoenix Marketcity Mumbai",
+      "countryId": "IND",
+      "country": "India",
+      "city": "Mumbai",
+      "address": "LBS Road, Kurla West, Mumbai 400070",
+      "latitude": 19.0866,
+      "longitude": 72.889,
+      "image": "https://picsum.photos/seed/pmc-mumbai/600/360",
+      "openingTime": "10:00",
+      "closingTime": "22:00",
+      "phone": "+91 20 6666 6677",
+      "timezone": "Asia/Kolkata",
+      "website": "https://www.phoenixmarketcity.com/mumbai"
+    },
+    {
+      "id": "pp-mumbai",
+      "hours": {
+        "sun": [
+          "11:00",
+          "22:30"
+        ]
+      },
+      "holidays": [
+        "2026-01-26",
+        "2026-08-15"
+      ],
+      "name": "Phoenix Palladium Mumbai",
+      "countryId": "IND",
+      "country": "India",
+      "city": "Mumbai",
+      "address": "462, Senapati Bapat Marg, Lower Parel, Mumbai 400013",
+      "latitude": 18.994,
+      "longitude": 72.8258,
+      "image": "https://picsum.photos/seed/pp-mumbai/600/360",
+      "openingTime": "11:00",
+      "closingTime": "22:00",
+      "phone": "+91 20 6666 6666",
+      "timezone": "Asia/Kolkata",
+      "website": "https://www.phoenixpalladium.com"
+    }
+  ]
+}

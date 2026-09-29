@@ -1,0 +1,150 @@
+.mall-popup .leaflet-popup-content-wrapper {
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 70vh;
+  border-radius: 14px;
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.35);
+}
+
+.mall-popup .leaflet-popup-content {
+  margin: 0;
+}
+
+/* tail has the same colour as the action bar, like the reference */
+.mall-popup .leaflet-popup-tip {
+  background: #1e3a5f;
+}
+
+.mall-popup a.leaflet-popup-close-button {
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  font-size: 22px;
+  line-height: 22px;
+  color: #94a3b8;
+}
+
+.mall-popup a.leaflet-popup-close-button:hover {
+  color: #0f172a;
+}
+
+.popup__header {
+  padding: 14px 40px 10px 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.popup__header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #2b6cb0;
+}
+
+.popup__content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 110px;
+  gap: 12px;
+  padding: 14px 16px;
+  align-items: start;
+}
+
+.popup__info p {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: #334155;
+  line-height: 1.4;
+}
+
+.popup__info .popup__city {
+  color: #f97316;
+  font-weight: 700;
+}
+
+.popup__info .popup__muted {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.popup__badge {
+  margin-top: 6px;
+}
+
+.popup__img {
+  width: 110px;
+  height: 110px;
+}
+
+.popup__hours strong,
+.popup__muted {
+  white-space: nowrap;
+}
+
+.popup__hours {
+  display: grid;
+  gap: 2px;
+}
+
+.popup__hours strong {
+  font-size: 14px;
+  color: #0f172a;
+}
+
+.popup__bar {
+  display: flex;
+  gap: 4px;
+  padding: 8px;
+  background: #1e3a5f;
+}
+
+.popup__bar a {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 9px 4px;
+  border-radius: 8px;
+  color: #fff !important;
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.popup__bar a:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+@media (max-width: 420px) {
+  .popup__content {
+    grid-template-columns: minmax(0, 1fr) 84px;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .popup__img {
+    width: 84px;
+    height: 84px;
+  }
+
+  .popup__hours strong,
+  .popup__muted {
+    white-space: normal;
+  }
+
+  .popup__bar a {
+    font-size: 12px;
+    gap: 4px;
+    padding: 10px 2px;
+  }
+
+  .mall-popup a.leaflet-popup-close-button {
+    width: 32px;
+    height: 32px;
+    font-size: 26px;
+    line-height: 30px;
+  }
+}
