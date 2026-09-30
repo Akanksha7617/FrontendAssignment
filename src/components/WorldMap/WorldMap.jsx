@@ -1,5 +1,5 @@
 import { useEffect, memo, useRef, useState } from 'react';
-import { MapContainer, TileLayer, GeoJSON, useMap, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, GeoJSON, AttributionControl, useMap, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { mallService } from '../../services/mallService';
 import MallMarker from '../MallMarker';
@@ -148,6 +148,7 @@ const WorldMap = memo(function WorldMap({
       maxBoundsViscosity={1}
       worldCopyJump={false}
       zoomControl
+      attributionControl={false}
     >
       <TileLayer
         url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
@@ -171,6 +172,7 @@ const WorldMap = memo(function WorldMap({
       />
       <FlyToSelected mall={selectedMall} />
       <ResizeWatcher />
+      <AttributionControl prefix={false} position="bottomright" />
       <ResetView onReset={() => onSelectCountry(null)} />
     </MapContainer>
   );
